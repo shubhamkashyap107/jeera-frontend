@@ -1,9 +1,24 @@
-import React from 'react'
+import React from "react";
+import { useSelector } from "react-redux";
+import OwnerDashboard from "../Components/Dashboard/OwnerDashboard";
+import AdminDashboard from "../Components/Dashboard/AdminDashboard";
 
 const Dashboard = () => {
-  return (
-    <div>Dashboard</div>
-  )
-}
+  const user = useSelector((store) => store.user);
 
-export default Dashboard
+  if(user.role == "owner")
+  {
+    return <OwnerDashboard />
+  }
+  else if(user.role == "admin")
+  {
+    return <AdminDashboard />
+  }
+
+
+
+  return null
+
+};
+
+export default Dashboard;
