@@ -1,42 +1,41 @@
-import axios from "axios"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Navigate, Outlet, useNavigate } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
+import api from "../Utils/api"
 import { addUserData } from "../Utils/redux/userSlice"
 import Loading from "./Loading"
 
 
 const ProtectedRoutes = () => {
 
- 
-
     const userData = useSelector(store => store.user)
     const dispatch = useDispatch()
-    const nav = useNavigate()
+    const [failed, setFailed] = useState(false)
 
     useEffect(() => {
-        axios.get(import.meta.env.VITE_BACKEND_URL + "/api/auth/me", {withCredentials : true})
+        if(userData) return
+
+        api.get("/api/auth/me")
         .then((res) => {
-            // console.log(res)
             dispatch(addUserData(res.data.data))
         })
         .catch(() => {
-            nav("login")
+            setFailed(true)
         })
-    }, [])
+    }, [userData, dispatch])
 
+
+    if(failed)
+    {
+        return <Navigate to="/login" replace />
+    }
 
     if(!userData)
     {
         return <Loading />
     }
-    
 
     return <Outlet />
-
-
-  
-    // return userData ? <Outlet /> : <Navigate to={'/login'} />
 
 }
 

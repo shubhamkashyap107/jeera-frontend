@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   Check,
@@ -10,7 +11,6 @@ import {
   MessageSquare,
   ShieldCheck,
   Users,
-  Building2,
   Zap,
   Menu,
   X,
@@ -18,6 +18,8 @@ import {
 
 const LandingPage = () => {
   const [mobileMenu, setMobileMenu] = React.useState(false);
+  const nav = useNavigate();
+  const goToLogin = () => nav("/login");
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -66,11 +68,11 @@ const LandingPage = () => {
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
-            <button className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
+            <button onClick={goToLogin} className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
               Sign in
             </button>
 
-            <button className="flex items-center gap-2 rounded-lg bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800">
+            <button onClick={goToLogin} className="flex items-center gap-2 rounded-lg bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800">
               Get started
               <ArrowRight size={16} />
             </button>
@@ -104,11 +106,11 @@ const LandingPage = () => {
               </a>
 
               <div className="border-t border-slate-200 pt-5">
-                <button className="mb-3 w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold">
+                <button onClick={goToLogin} className="mb-3 w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold">
                   Sign in
                 </button>
 
-                <button className="w-full rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white">
+                <button onClick={goToLogin} className="w-full rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white">
                   Get started
                 </button>
               </div>
@@ -156,7 +158,7 @@ const LandingPage = () => {
               </p>
 
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <button className="group flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-950/10 transition hover:bg-slate-800 sm:w-auto">
+                <button onClick={goToLogin} className="group flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-950/10 transition hover:bg-slate-800 sm:w-auto">
                   Get started
 
                   <ArrowRight
@@ -165,7 +167,7 @@ const LandingPage = () => {
                   />
                 </button>
 
-                <button className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-7 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 sm:w-auto">
+                <button onClick={() => document.getElementById("workflow")?.scrollIntoView({ behavior: "smooth" })} className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-7 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 sm:w-auto">
                   See how it works
                 </button>
               </div>
@@ -532,7 +534,7 @@ const LandingPage = () => {
                   and give every team member a clear place to work.
                 </p>
 
-                <button className="mt-8 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-7 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800">
+                <button onClick={goToLogin} className="mt-8 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-7 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800">
                   Get started
                   <ArrowRight size={17} />
                 </button>

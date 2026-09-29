@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast"
 import {
   ArrowRight,
@@ -10,13 +10,18 @@ import {
   Mail,
   ShieldCheck,
 } from "lucide-react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import api from "../Utils/api";
+import { removeUserData } from "../Utils/redux/userSlice";
+import { getErrorMessage } from "../Utils/helpers";
 
 const Login = () => {
 
 
   const nav = useNavigate()
+  const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -34,32 +39,18 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitting(true);
 
-    // console.log("Login data:", formData);
-
-    // Connect your login API here later
-    // Example:
-    // login(formData)
-
-    // fetch(URL, {
-    //     method : "",
-    //     body : {
-            
-    //     },
-    //     headers : {
-
-    //     },
-    //     credentials
-    // })
-    axios.post(import.meta.env.VITE_BACKEND_URL + "/api/auth/login", formData, { withCredentials : true})
-    .then((res) => {
-        // console.log(res)
+    api.post("/api/auth/login", formData)
+    .then(() => {
+        // ProtectedRoutes fetches /me, so drop any stale user from a previous session
+        dispatch(removeUserData())
         nav("/dashboard")
     })
-    .catch(() => {
-        // console.log("ERROR")
-        toast.error("Invalid Credentials")
+    .catch((error) => {
+        toast.error(getErrorMessage(error, "Invalid Credentials"))
     })
+    .finally(() => setSubmitting(false))
   };
 
   return (
@@ -265,12 +256,6 @@ const Login = () => {
                     Password
                   </label>
 
-                  <button
-                    type="button"
-                    className="text-xs font-semibold text-slate-500 transition hover:text-slate-950"
-                  >
-                    Forgot password?
-                  </button>
 
                 </div>
 
@@ -357,10 +342,8 @@ const Login = () => {
               {/* Submit */}
 
               <button
-                // onClick={async() => {
-                //     await axios.post(import.meta.env.VITE_BACKEND_URL, {})
-                // }}
                 type="submit"
+                disabled={submitting}
                 className="
                   group
                   flex
@@ -381,9 +364,11 @@ const Login = () => {
                   focus:outline-none
                   focus:ring-4
                   focus:ring-slate-950/10
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
                 "
               >
-                Sign in
+                {submitting ? "Signing in..." : "Sign in"}
 
                 <ArrowRight
                   size={17}

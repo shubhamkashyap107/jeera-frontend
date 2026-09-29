@@ -7,10 +7,14 @@ const UserSlice = createSlice({
         addUserData : (state, action) =>
         {
             return action.payload
-        }   
+        },
+        removeUserData : () =>
+        {
+            return null
+        }
     }
 })
 
 
 export default UserSlice.reducer
-export const{ addUserData } = UserSlice.actions
+export const{ addUserData, removeUserData } = UserSlice.actions
