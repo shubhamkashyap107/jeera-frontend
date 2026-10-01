@@ -15,6 +15,8 @@ import Employees from './Pages/Admin/Employees'
 import Tasks from './Pages/Admin/Tasks'
 import MyTasks from './Pages/Employee/MyTasks'
 import NotFound from './Pages/NotFound'
+import Conversations from './Pages/Conversations'
+import Chat from './Pages/Chat'
 
 
 const App = () => {
@@ -46,6 +48,11 @@ const App = () => {
 
             <Route element={<RoleRoute roles={["employee"]} />}>
               <Route path='/my-tasks' element={<MyTasks />} />
+            </Route>
+
+            <Route element={<RoleRoute roles={["admin", "employee"]} />}>
+              <Route path='/conversations' element={<Conversations />} />
+              <Route path='/conversations/:id' element={<Chat />} />
             </Route>
           </Route>
         </Route>

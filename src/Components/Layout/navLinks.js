@@ -5,6 +5,7 @@ import {
   BriefcaseBusiness,
   Users,
   ListChecks,
+  MessagesSquare,
 } from "lucide-react";
 
 export const navLinks = {
@@ -18,10 +19,12 @@ export const navLinks = {
     { label: "Teams", icon: BriefcaseBusiness, path: "/teams" },
     { label: "Employees", icon: Users, path: "/employees" },
     { label: "Tasks", icon: ListChecks, path: "/tasks" },
+    { label: "Conversations", icon: MessagesSquare, path: "/conversations" },
   ],
   employee: [
     { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
     { label: "My Tasks", icon: ListChecks, path: "/my-tasks" },
+    { label: "Conversations", icon: MessagesSquare, path: "/conversations" },
   ],
 };
 
